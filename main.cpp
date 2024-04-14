@@ -1,58 +1,37 @@
-#include <cstdio> // imports printf
-#include "raylib.h"
+#include <iostream>
+#include <raylib.h>
+#include "app.hpp"
 
 #define GLSL_VERSION 330
 
-// main event loop
-void EventLoop(Shader shader) {
-  ClearBackground(BLACK);
-  if (IsWindowFocused()) {
-    // get world parameters
-    int w = GetScreenWidth();
-    int h = GetScreenHeight();
-    int fps = GetFPS();
-    double elapsed = GetTime();
-    // Vector2 mousePos = GetMousePosition();
-
-    // add uniforms to shader
-    float screenSize[2] = { (float)w, (float)h };
-    float t = (float)elapsed;
-    SetShaderValue(shader, GetShaderLocation(shader, "t"), &t, SHADER_UNIFORM_FLOAT);
-    SetShaderValue(shader, GetShaderLocation(shader, "screen_size"), &screenSize, SHADER_UNIFORM_VEC2);
-    // draw background
-    BeginShaderMode(shader);
-      DrawRectangle(0, 0, w, h, WHITE);
-    EndShaderMode();
-
-    // printf("Debug - %i %f\n", fps, elapsed);
-    DrawText(TextFormat("%i %f", fps, elapsed), 10, 10, 18, WHITE);
-    DrawPoly((Vector2){ (float)w/2, (float)h/2 }, 4, 80, elapsed * 10, WHITE);
-
-  } else {
-    DrawText("Pay attention to me", 10, 10, 24, RED);
-  }
-}
-
-int main() {
+/// @brief Entry point
+/// @param argc arguments count
+/// @param argv arguments array
+/// @return exit code
+int main(int argc, char* argv[]) {
   // --- INITIALIZATION ---
-  // SetWindowIcon(image);
-  SetConfigFlags(FLAG_WINDOW_RESIZABLE); // Window configuration flags
-  InitWindow(800, 600, "Test Window");
+  SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+  SetConfigFlags(FLAG_MSAA_4X_HINT);
+  InitWindow(800, 600, "Raylib App");
+  // InitAudioDevice();
   SetWindowMinSize(400, 300);
   SetTargetFPS(120);
+  // SetMasterVolume(0.2);
 
-  Shader shader = LoadShader(0, TextFormat("assets/test.frag", GLSL_VERSION));
-  
+  App::EventLoop e;
+  e.init();
+
   // --- EVENT LOOP ---
-  printf("\n\n\n-- Starting Event Loop --\n");
+  std::cout << "Starting..." << std::endl;
   while (!WindowShouldClose()) {
-    BeginDrawing();
-      EventLoop(shader);
-    EndDrawing();
+    e.update();
+    e.render();
   }
+  std::cout << "Exiting..." << std::endl;
 
   // --- CLEAN UP ---
-  UnloadShader(shader);
+  // CloseAudioDevice();
+  e.cleanup();
   CloseWindow();
 
   return 0;

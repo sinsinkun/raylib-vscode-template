@@ -1,4 +1,5 @@
 # ignore build artifacts
+build/
 *.exe
 *.pdb
 

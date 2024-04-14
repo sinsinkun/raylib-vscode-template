@@ -10,6 +10,6 @@
 ## Release
 - This is for compiling a release version of the project, packaging dependencies into the .exe
 - Will result in a longer compile time
+- Download raylib sources files to default location (C:/raylib/raylib/src)
+- Note: Can get raylib source code from https://www.raylib.com/
 - Run `./release.bat`
-- Note: needs to have raylib sources files downloaded to default location (C:/raylib/raylib/src)
-- Can get raylib source code from https://www.raylib.com/

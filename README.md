@@ -8,6 +8,8 @@
 - (FYI: `-lraylib` flag was added to tasks.json manually)
 
 ## Release
+- This is for compiling a release version of the project, packaging dependencies into the .exe
+- Will result in a longer compile time
 - Run `./release.bat`
 - Note: needs to have raylib sources files downloaded to default location (C:/raylib/raylib/src)
 - Can get raylib source code from https://www.raylib.com/

@@ -1,6 +1,7 @@
 #include <vector>
 #include <raylib.h>
 #include "box.hpp"
+#include "light.hpp"
 
 namespace App {
   class EventLoop {
@@ -14,6 +15,7 @@ namespace App {
       double elapsed = 0.0;
       // assets
       std::vector<Box> boxes;
+      std::vector<Light> lights;
       RenderTexture2D colorBuffer;
       RenderTexture2D normalBuffer;
       // methods
@@ -24,5 +26,6 @@ namespace App {
     private:
       void _updateSystem();
       void _drawFps();
+      void _updateBuffers(Rectangle& src, Rectangle& dest);
   };
 }

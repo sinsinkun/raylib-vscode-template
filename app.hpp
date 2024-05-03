@@ -1,15 +1,21 @@
 #include <vector>
 #include <raylib.h>
+#include "box.hpp"
 
 namespace App {
   class EventLoop {
     public:
       // global states
-      int screenW = 0;
-      int screenH = 0;
+      Camera2D camera;
+      int screenW = 800;
+      int screenH = 600;
       Vector2 screenCenter = { 0.0, 0.0 };
       int fps = 0;
       double elapsed = 0.0;
+      // assets
+      std::vector<Box> boxes;
+      RenderTexture2D colorBuffer;
+      RenderTexture2D normalBuffer;
       // methods
       void init();
       void update();
